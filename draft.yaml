@@ -1,0 +1,53 @@
+models:
+  Role:
+    code: string unique
+    libelle: string
+
+  State:
+    code: string unique
+    libelle: string
+    relationships:
+      hasMany: StateQuiz
+
+  Quiz:
+    libelle: string
+    description: string nullable
+    user_email: string
+    relationships:
+      hasMany: StateQuiz, Question, Resultat
+
+  StateQuiz:
+    state_id: id foreign
+    quiz_id: id foregin
+
+  Question:
+    libelle: string
+    description: string nullable
+    quiz_id: id foregin
+    relationships:
+      hasMany: Reponse, Resultat
+
+  Reponse:
+    libelle: string
+    description: string nullable
+    type: string
+    question_id: id foregin
+    relationships:
+      hasMany: Resultat
+
+  Resultat:
+    score: int
+    user_id: id foreign
+    question_id: id foreign
+    quiz_id: id foreign
+    reponse_id: id foreign
+
+controllers:
+  Api\Question:
+    resource: api
+
+  Api\Reponse:
+    resource: api
+
+  Api\Resultat:
+    resource: api

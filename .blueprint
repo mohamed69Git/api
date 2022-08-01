@@ -1,0 +1,51 @@
+created:
+    - app/Http/Controllers/Api/QuestionController.php
+    - app/Http/Controllers/Api/ReponseController.php
+    - app/Http/Controllers/Api/ResultatController.php
+    - database/factories/RoleFactory.php
+    - database/factories/StateFactory.php
+    - database/factories/QuizFactory.php
+    - database/factories/StateQuizFactory.php
+    - database/factories/QuestionFactory.php
+    - database/factories/ReponseFactory.php
+    - database/factories/ResultatFactory.php
+    - database/migrations/2022_07_30_183727_create_roles_table.php
+    - database/migrations/2022_07_30_183728_create_states_table.php
+    - database/migrations/2022_07_30_183729_create_quizzes_table.php
+    - database/migrations/2022_07_30_183730_create_state_quizzes_table.php
+    - database/migrations/2022_07_30_183731_create_questions_table.php
+    - database/migrations/2022_07_30_183732_create_reponses_table.php
+    - database/migrations/2022_07_30_183733_create_resultats_table.php
+    - app/Models/Role.php
+    - app/Models/State.php
+    - app/Models/Quiz.php
+    - app/Models/StateQuiz.php
+    - app/Models/Question.php
+    - app/Models/Reponse.php
+    - app/Models/Resultat.php
+    - tests/Feature/Http/Controllers/Api/QuestionControllerTest.php
+    - tests/Feature/Http/Controllers/Api/ReponseControllerTest.php
+    - tests/Feature/Http/Controllers/Api/ResultatControllerTest.php
+    - app/Http/Requests/Api/QuestionStoreRequest.php
+    - app/Http/Requests/Api/QuestionUpdateRequest.php
+    - app/Http/Requests/Api/ReponseStoreRequest.php
+    - app/Http/Requests/Api/ReponseUpdateRequest.php
+    - app/Http/Requests/Api/ResultatStoreRequest.php
+    - app/Http/Requests/Api/ResultatUpdateRequest.php
+    - app/Http/Resources/Api/QuestionCollection.php
+    - app/Http/Resources/Api/QuestionResource.php
+    - app/Http/Resources/Api/ReponseCollection.php
+    - app/Http/Resources/Api/ReponseResource.php
+    - app/Http/Resources/Api/ResultatCollection.php
+    - app/Http/Resources/Api/ResultatResource.php
+updated:
+    - routes/api.php
+models:
+    User: { name: string, email: string, email_verified_at: 'datetime nullable', password: string, remember_token: 'string:100 nullable' }
+    Role: { code: 'string unique', libelle: string }
+    State: { code: 'string unique', libelle: string, relationships: { hasMany: StateQuiz } }
+    Quiz: { libelle: string, description: 'string nullable', user_email: string, relationships: { hasMany: 'StateQuiz, Question, Resultat' } }
+    StateQuiz: { state_id: 'id foreign', quiz_id: 'id foregin' }
+    Question: { libelle: string, description: 'string nullable', quiz_id: 'id foregin', relationships: { hasMany: 'Reponse, Resultat' } }
+    Reponse: { libelle: string, description: 'string nullable', type: string, question_id: 'id foregin', relationships: { hasMany: Resultat } }
+    Resultat: { score: int, user_id: 'id foreign', question_id: 'id foreign', quiz_id: 'id foreign', reponse_id: 'id foreign' }
